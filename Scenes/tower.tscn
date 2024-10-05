@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://bljctpnk4gp61"]
+
+[ext_resource type="Script" path="res://Scripts/tower.gd" id="1_p0uy3"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="2_pm5t5"]
+[ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="3_22tbh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ipm04"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cbouk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_absba"]
+shader = ExtResource("2_pm5t5")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llmxt"]
+bg_color = Color(0, 0.87451, 0.631373, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pbw5"]
+bg_color = Color(0.519266, 0.716196, 0.999997, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i8qqe"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nkrnf"]
+
+[node name="tower" type="StaticBody3D" groups=["tower"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.96611, 0, 3.39826)
+script = ExtResource("1_p0uy3")
+damage = 2
+max_health = 50
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ipm04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cbouk")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -4)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(512, 22)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 325
+
+[node name="health" type="ProgressBar" parent="SubViewport/CanvasLayer/MarginContainer"]
+material = SubResource("ShaderMaterial_absba")
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0.411765, 0.658824, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_22tbh")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/background = SubResource("StyleBoxFlat_llmxt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6pbw5")
+rounded = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735, 0)
+offset = Vector2(-160, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_i8qqe")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.245, 0, 0, 0, -1.07093e-08, -0.245, 0, 0.245, -1.07093e-08, 0, 0, -0.726339)
+mesh = SubResource("CylinderMesh_nkrnf")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

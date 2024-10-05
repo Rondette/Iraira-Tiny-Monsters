@@ -1,0 +1,179 @@
+[gd_scene load_steps=21 format=3 uid="uid://d3ncvw2fx6n3c"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_43u55"]
+[ext_resource type="PackedScene" uid="uid://bljctpnk4gp61" path="res://Scenes/tower.tscn" id="2_htiux"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Advanced_Wave_2d.gdshader" id="3_rrg3h"]
+[ext_resource type="Script" path="res://Scenes/item_bar.gd" id="4_ug3vs"]
+[ext_resource type="Texture2D" uid="uid://cwlyvv16x3brn" path="res://CircleBorder.png" id="5_qyfxx"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/text_stretch.gdshader" id="6_64kh4"]
+[ext_resource type="FontFile" uid="uid://cdw74duhcy6yo" path="res://Fonts/ConcertOne-Regular.ttf" id="7_76re3"]
+[ext_resource type="Script" path="res://Scripts/food_remaining.gd" id="8_5ac17"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="9_mch4h"]
+[ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="10_7lmws"]
+[ext_resource type="Gradient" uid="uid://c0gt8xvkismoe" path="res://base_gradient.tres" id="11_oquvf"]
+[ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="12_6ovwy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0tyl"]
+shader = ExtResource("9_mch4h")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gt7q2"]
+gradient = ExtResource("11_oquvf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lmc4e"]
+texture = SubResource("GradientTexture2D_gt7q2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7unn"]
+shader = ExtResource("6_64kh4")
+shader_parameter/distance = 4.0
+shader_parameter/frequency = 14.685
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elajn"]
+shader = ExtResource("3_rrg3h")
+shader_parameter/speed = 1.0
+shader_parameter/height = 10.0
+shader_parameter/wave_count = 10.0
+shader_parameter/edge_intensity = 0.0
+shader_parameter/alpha_intensity = 1.0
+shader_parameter/frequency = 20.0
+shader_parameter/circle_size = 0.484
+shader_parameter/ratio_width = 0.58
+shader_parameter/ratio_height = 1.0
+
+[sub_resource type="Gradient" id="Gradient_4486c"]
+offsets = PackedFloat32Array(0, 0.0401146)
+colors = PackedColorArray(0.184314, 1, 0.854902, 0.294118, 0.184314, 1, 0.854902, 0.368627)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_20lcq"]
+gradient = SubResource("Gradient_4486c")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gwx8e"]
+
+[node name="Camera3D" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.728969, 0.684547, 0, -0.684547, 0.728969, -3.90751, 6.51926, 10.9211)
+current = true
+script = ExtResource("1_43u55")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 1790
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 3415
+theme_override_constants/margin_bottom = 20
+
+[node name="FoodRemaining" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("8_5ac17")
+
+[node name="FoodBar" type="ProgressBar" parent="CanvasLayer/Control/MarginContainer/FoodRemaining"]
+material = SubResource("ShaderMaterial_w0tyl")
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0.411765, 0.658824, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("10_7lmws")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/fill = SubResource("StyleBoxTexture_lmc4e")
+rounded = true
+
+[node name="FoodRemainingLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/FoodRemaining"]
+material = SubResource("ShaderMaterial_p7unn")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.913725, 0.580392, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("12_6ovwy")
+theme_override_font_sizes/font_size = 30
+text = "Food Remaining"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 930
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer2"]
+material = SubResource("ShaderMaterial_elajn")
+layout_mode = 2
+texture = SubResource("GradientTexture1D_20lcq")
+
+[node name="ItemBar" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+script = ExtResource("4_ug3vs")
+test_tower = ExtResource("2_htiux")
+
+[node name="test_tower" type="Button" parent="CanvasLayer/Control/MarginContainer2/ItemBar"]
+self_modulate = Color(0.282353, 0.678431, 0.517647, 1)
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("5_qyfxx")
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer2/ItemBar/test_tower"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_gwx8e")
+
+[node name="amount" type="Label" parent="CanvasLayer/Control/MarginContainer2/ItemBar/test_tower"]
+material = SubResource("ShaderMaterial_p7unn")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -72.0
+offset_right = 33.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.913725, 0.580392, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 25
+theme_override_fonts/font = ExtResource("7_76re3")
+theme_override_font_sizes/font_size = 60
+text = "1"
+
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/test_tower" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_test_tower_pressed"]

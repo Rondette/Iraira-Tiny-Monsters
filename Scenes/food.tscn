@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnynoipodmiud"]
+
+[ext_resource type="Script" path="res://Scripts/food.gd" id="1_r12v6"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="2_lcgb6"]
+[ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="3_v66bw"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_0cef0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4lc3j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6hgd"]
+shader = ExtResource("2_lcgb6")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jfyd"]
+bg_color = Color(0, 0.87451, 0.631373, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oaxh6"]
+bg_color = Color(0, 0.87451, 0.631373, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0eft4"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Food" type="StaticBody3D" groups=["food"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00648, 0, -1.9403)
+script = ExtResource("1_r12v6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_0cef0")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4lc3j")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(512, 22)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 325
+
+[node name="health" type="ProgressBar" parent="SubViewport/CanvasLayer/MarginContainer"]
+material = SubResource("ShaderMaterial_f6hgd")
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0.411765, 0.658824, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_v66bw")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/background = SubResource("StyleBoxFlat_3jfyd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_oaxh6")
+rounded = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735, 0)
+offset = Vector2(-160, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_0eft4")

@@ -1,0 +1,143 @@
+[gd_scene load_steps=16 format=3 uid="uid://mv1i7hoc4xs3"]
+
+[ext_resource type="Shader" path="res://Scripts/Shaders/Chromatic_Aberration.gdshader" id="1_i36c2"]
+[ext_resource type="Script" path="res://Scripts/LoadingText.gd" id="1_ipnuh"]
+[ext_resource type="Shader" path="res://Scripts/wackey_text.gdshader" id="2_4ydv4"]
+[ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="3_vgw5w"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="4_luafv"]
+[ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="5_aghid"]
+[ext_resource type="Gradient" uid="uid://c0gt8xvkismoe" path="res://base_gradient.tres" id="6_0lrkc"]
+
+[sub_resource type="Gradient" id="Gradient_8san0"]
+offsets = PackedFloat32Array(0, 0.993031)
+colors = PackedColorArray(0, 0.913725, 0.580392, 1, 1, 0.697449, 0.829585, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mp4ev"]
+gradient = SubResource("Gradient_8san0")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6q3v8"]
+shader = ExtResource("2_4ydv4")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+shader_parameter/slide_div = 150.0
+shader_parameter/slide_speed = 2.0
+shader_parameter/slide_height = 28.155
+shader_parameter/y_slide = false
+shader_parameter/x_slide = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_13geo"]
+shader = ExtResource("1_i36c2")
+shader_parameter/levels = 2
+shader_parameter/spread = -0.035
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_et0pi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sw4gm"]
+shader = ExtResource("4_luafv")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y2fgg"]
+gradient = ExtResource("6_0lrkc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ur7s"]
+texture = SubResource("GradientTexture2D_y2fgg")
+
+[node name="loading_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ipnuh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_mp4ev")
+
+[node name="Label2" type="Label" parent="."]
+material = SubResource("ShaderMaterial_6q3v8")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.5
+offset_top = -104.5
+offset_right = 404.5
+offset_bottom = 104.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.513726, 1, 0.752941, 1)
+theme_override_colors/font_outline_color = Color(1, 0.412244, 0.658329, 1)
+theme_override_constants/outline_size = 50
+theme_override_constants/shadow_outline_size = 100
+theme_override_fonts/font = ExtResource("3_vgw5w")
+theme_override_font_sizes/font_size = 176
+text = "Loading!"
+
+[node name="Chroma2" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_13geo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_et0pi")
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_6q3v8")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.5
+offset_top = -104.5
+offset_right = 404.5
+offset_bottom = 104.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(598.5, 67.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.513726, 1, 0.752941, 1)
+theme_override_colors/font_outline_color = Color(1, 0.412244, 0.658329, 1)
+theme_override_constants/outline_size = 50
+theme_override_constants/shadow_outline_size = 100
+theme_override_fonts/font = ExtResource("3_vgw5w")
+theme_override_font_sizes/font_size = 176
+text = "Loading!"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_sw4gm")
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0.411765, 0.658824, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("5_aghid")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/fill = SubResource("StyleBoxTexture_6ur7s")
+rounded = true
