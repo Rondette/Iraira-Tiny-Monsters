@@ -13,7 +13,7 @@ VERTEX.x += height * cos((frequency/2.0 * UV.y) + (speed * TIME));
 if (y_slide == true){
 	VERTEX.y += slide_height * tan((frequency/slide_div * UV.x) + (slide_speed * TIME));
 }
-else if (x_slide == true){
+if (x_slide == true){
 	VERTEX.x += slide_height * tan((frequency/slide_div * UV.y) + (slide_speed * TIME));
 }
 }

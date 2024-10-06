@@ -7,11 +7,11 @@
 [ext_resource type="Shader" path="res://Scripts/Shaders/text_stretch.gdshader" id="5_bujxu"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/Advanced_Wave_2d.gdshader" id="6_auw15"]
 
-[sub_resource type="Gradient" id="Gradient_qbj1b"]
+[sub_resource type="Gradient" id="Gradient_muavp"]
 colors = PackedColorArray(0.378232, 6.04643e-07, 4.81308e-08, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1kdeu"]
-gradient = SubResource("Gradient_qbj1b")
+gradient = SubResource("Gradient_muavp")
 fill_from = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ke8km"]
@@ -50,12 +50,12 @@ shader_parameter/circle_size = 0.4
 shader_parameter/ratio_width = 1.0
 shader_parameter/ratio_height = 1.0
 
-[sub_resource type="Gradient" id="Gradient_meef7"]
+[sub_resource type="Gradient" id="Gradient_kchb6"]
 offsets = PackedFloat32Array(0.439024, 1)
 colors = PackedColorArray(0.647059, 0, 0.360784, 0.266667, 1, 0.290196, 0.564706, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ssvp7"]
-gradient = SubResource("Gradient_meef7")
+gradient = SubResource("Gradient_kchb6")
 width = 32
 height = 32
 fill_from = Vector2(0, 1)

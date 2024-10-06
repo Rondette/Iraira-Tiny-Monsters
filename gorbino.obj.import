@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dsmw7fdkbxu04"
+path="res://.godot/imported/gorbino.obj-272e5b9efec65c5bcd101738a8da4334.mesh"
+
+[deps]
+
+files=["res://.godot/imported/gorbino.obj-272e5b9efec65c5bcd101738a8da4334.mesh"]
+
+source_file="res://gorbino.obj"
+dest_files=["res://.godot/imported/gorbino.obj-272e5b9efec65c5bcd101738a8da4334.mesh", "res://.godot/imported/gorbino.obj-272e5b9efec65c5bcd101738a8da4334.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

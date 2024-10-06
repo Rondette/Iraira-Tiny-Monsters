@@ -1,15 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://275yyjws5a2n"]
+[gd_scene load_steps=21 format=3 uid="uid://275yyjws5a2n"]
 
 [ext_resource type="Script" path="res://Scenes/level.gd" id="1_1oduj"]
 [ext_resource type="PackedScene" uid="uid://d3ncvw2fx6n3c" path="res://Scenes/camera_3d.tscn" id="2_55gh3"]
 [ext_resource type="Material" path="res://StandardSky.tres" id="2_m6wtl"]
+[ext_resource type="PackedScene" uid="uid://qk17iec0wbbg" path="res://Scenes/waveVFX.tscn" id="2_u3ep8"]
 [ext_resource type="PackedScene" uid="uid://dnynoipodmiud" path="res://Scenes/food.tscn" id="3_babeb"]
-[ext_resource type="PackedScene" uid="uid://bljctpnk4gp61" path="res://Scenes/tower.tscn" id="12_vx5ik"]
+[ext_resource type="Material" uid="uid://cwq2v3nrvjsiu" path="res://tile_1.tres" id="4_fsipf"]
+[ext_resource type="Texture2D" uid="uid://cdvyyq7q7yhf8" path="res://creatures/creature_house.png" id="7_7x3mh"]
+[ext_resource type="Script" path="res://Scripts/spawn_point.gd" id="7_fjowr"]
+[ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="8_fy1c5"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="9_hhuy3"]
+[ext_resource type="Texture2D" uid="uid://ctokkdfmefhcp" path="res://Cupboards_Albedo.png" id="12_du70e"]
+[ext_resource type="Texture2D" uid="uid://dgw3n8rm5kqlo" path="res://Cupboards_Normal.png" id="13_sqfmk"]
+[ext_resource type="ArrayMesh" uid="uid://dsk8nj3vy1v6w" path="res://cupboards.obj" id="14_eq5h6"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3bf47"]
-vertices = PackedVector3Array(-12.8682, -0.0134946, -6.38184, -12.8682, -0.0134946, 7.86816, 6.38184, -0.0134946, 7.86816, 6.38184, -0.0134946, -6.38184)
+vertices = PackedVector3Array(-39.5, 0.0517354, -39.5, -39.5, 0.0517354, 39.5, 39.5, 0.0517354, 39.5, 39.5, 0.0517354, -39.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_max_climb = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_sbnil"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kwx7m"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="Sky" id="Sky_bony6"]
 sky_material = ExtResource("2_m6wtl")
@@ -22,33 +35,93 @@ volumetric_fog_density = 0.01
 volumetric_fog_emission = Color(1, 0.619083, 0.778338, 1)
 volumetric_fog_gi_inject = 0.45
 
+[sub_resource type="FogMaterial" id="FogMaterial_8acg4"]
+density = 8.0
+emission = Color(0.768627, 0.4, 0, 1)
+height_falloff = 0.702396
+edge_fade = 5.38174
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_0dgui"]
+albedo_texture = ExtResource("12_du70e")
+normal_enabled = true
+normal_texture = ExtResource("13_sqfmk")
+clearcoat_enabled = true
+texture_filter = 0
+
 [node name="test" type="Node3D" node_paths=PackedStringArray("spawnNode")]
 script = ExtResource("1_1oduj")
 spawnNode = NodePath("spawnPoint")
+wave_vfx = ExtResource("2_u3ep8")
+time_between_waves = 6
+wave_time = 10
+level_number = 1
 
 [node name="Camera3D" parent="." instance=ExtResource("2_55gh3")]
+transform = Transform3D(1, 0, 0, 0, 0.907044, 0.421036, 0, -0.421036, 0.907044, -0.0862992, 5.73909, 9.80182)
+money = 15
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_3bf47")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" groups=["floor"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25537, -1.01349, 0.755371)
-use_collision = true
-size = Vector3(20.2256, 1, 15.2744)
+[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D" groups=["floor"]]
+transform = Transform3D(80, 0, 0, 0, 1, 0, 0, 0, 80, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.948265, 0)
+material_override = ExtResource("4_fsipf")
+mesh = SubResource("BoxMesh_sbnil")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.948265, 0)
+shape = SubResource("ConcavePolygonShape3D_kwx7m")
 
 [node name="Food" parent="." instance=ExtResource("3_babeb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.51077, 0, -1.9403)
-max_health = 270
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.751, 0.312, -3.71)
+max_health = 200
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gbffv")
 
-[node name="tower" parent="." instance=ExtResource("12_vx5ik")]
-
-[node name="spawnClock" type="Timer" parent="."]
+[node name="waveInterval" type="Timer" parent="."]
+wait_time = 7.0
 autostart = true
 
-[node name="spawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71378, 0, 2.08988)
+[node name="spawnPoint" type="Node3D" parent="." groups=["spawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.534, 0, 2.09)
+script = ExtResource("7_fjowr")
 
-[connection signal="timeout" from="spawnClock" to="." method="_on_spawn_clock_timeout"]
+[node name="spawnInterval" type="Timer" parent="spawnPoint"]
+autostart = true
+
+[node name="Sprite3D" type="Sprite3D" parent="spawnPoint"]
+transform = Transform3D(7.44, 0, 0, 0, 7.44, 0, 0, 0, 7.44, 0, 0.778809, 0)
+billboard = 2
+texture_filter = 0
+texture = ExtResource("7_7x3mh")
+
+[node name="FuncGodotMap" type="Node3D" parent="."]
+script = ExtResource("8_fy1c5")
+map_settings = ExtResource("9_hhuy3")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.639219, 0.815689, -23.8536)
+size = Vector3(71.6823, 29.6339, 31.1851)
+material = SubResource("FogMaterial_8acg4")
+
+[node name="Cupboards" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.175, 0, 0, 0, 5.175, 0, 0, 0, 5.175, 0.00334501, 10.7389, -21.2831)
+material_override = SubResource("ORMMaterial3D_0dgui")
+mesh = ExtResource("14_eq5h6")
+
+[node name="Cupboards2" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.175, 0, 0, 0, 5.175, 0, 0, 0, 5.175, -25.1593, 10.7389, -21.2831)
+material_override = SubResource("ORMMaterial3D_0dgui")
+mesh = ExtResource("14_eq5h6")
+
+[node name="Cupboards3" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.175, 0, 0, 0, 5.175, 0, 0, 0, 5.175, 25.2695, 10.7389, -21.2831)
+material_override = SubResource("ORMMaterial3D_0dgui")
+mesh = ExtResource("14_eq5h6")
+
+[connection signal="timeout" from="waveInterval" to="." method="_on_spawn_clock_timeout"]
+[connection signal="timeout" from="spawnPoint/spawnInterval" to="spawnPoint" method="_on_spawn_interval_timeout"]

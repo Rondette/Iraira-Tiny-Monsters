@@ -50,3 +50,5 @@ func _on_exit_mouse_exited() -> void:
 
 func _on_start_pressed() -> void:
 	Globals.loadScene("res://Scenes/test.tscn")
+func _on_exit_pressed() -> void:
+	get_tree().quit()

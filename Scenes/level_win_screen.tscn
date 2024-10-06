@@ -1,0 +1,263 @@
+[gd_scene load_steps=23 format=3 uid="uid://d24go65f52sbh"]
+
+[ext_resource type="Shader" path="res://Scripts/wackey_text.gdshader" id="1_g43xs"]
+[ext_resource type="Script" path="res://Scenes/level_win_screen.gd" id="1_q2hq4"]
+[ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="2_ro0d5"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Chromatic_Aberration.gdshader" id="3_w6hv3"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/text_stretch.gdshader" id="4_3hrqw"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="5_qlxts"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Advanced_Wave_2d.gdshader" id="5_v44nw"]
+
+[sub_resource type="Gradient" id="Gradient_qbj1b"]
+colors = PackedColorArray(0, 1, 0.717647, 1, 0, 0.466667, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o6y6x"]
+gradient = SubResource("Gradient_qbj1b")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlrji"]
+shader = ExtResource("1_g43xs")
+shader_parameter/height = 20.395
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 1.45
+shader_parameter/slide_div = 60.0
+shader_parameter/slide_speed = 0.51
+shader_parameter/slide_height = 6.0
+shader_parameter/y_slide = false
+shader_parameter/x_slide = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gq32"]
+shader = ExtResource("3_w6hv3")
+shader_parameter/levels = 4
+shader_parameter/spread = -0.05
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_okho5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfjwa"]
+shader = ExtResource("5_v44nw")
+shader_parameter/speed = 1.0
+shader_parameter/height = 10.0
+shader_parameter/wave_count = 10.0
+shader_parameter/edge_intensity = 0.0
+shader_parameter/alpha_intensity = 1.0
+shader_parameter/frequency = 20.0
+shader_parameter/circle_size = 0.484
+shader_parameter/ratio_width = 0.58
+shader_parameter/ratio_height = 1.0
+
+[sub_resource type="Gradient" id="Gradient_4486c"]
+offsets = PackedFloat32Array(0, 0.0401146)
+colors = PackedColorArray(0.184314, 1, 0.854902, 0.294118, 0.184314, 1, 0.854902, 0.368627)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_snw1w"]
+gradient = SubResource("Gradient_4486c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0wppo"]
+shader = ExtResource("5_qlxts")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+
+[sub_resource type="Gradient" id="Gradient_og6jj"]
+colors = PackedColorArray(0.223529, 1, 0.592157, 1, 0.223529, 0.521569, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qcrfd"]
+gradient = SubResource("Gradient_og6jj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8qvh"]
+shader = ExtResource("4_3hrqw")
+shader_parameter/distance = 4.0
+shader_parameter/frequency = 14.685
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p1dp"]
+shader = ExtResource("5_v44nw")
+shader_parameter/speed = 3.0
+shader_parameter/height = 0.5
+shader_parameter/wave_count = 10.0
+shader_parameter/edge_intensity = 0.14
+shader_parameter/alpha_intensity = 1.0
+shader_parameter/frequency = 20.0
+shader_parameter/circle_size = 0.4
+shader_parameter/ratio_width = 1.0
+shader_parameter/ratio_height = 1.0
+
+[sub_resource type="Gradient" id="Gradient_meef7"]
+offsets = PackedFloat32Array(0.439024, 1)
+colors = PackedColorArray(0.647059, 0, 0.360784, 0.266667, 1, 0.290196, 0.564706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_crx4s"]
+gradient = SubResource("Gradient_meef7")
+width = 32
+height = 32
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0.470085, 0.457265)
+
+[node name="LevelWinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q2hq4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_o6y6x")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_o6y6x")
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_tlrji")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -421.0
+offset_top = -286.02
+offset_right = 421.0
+offset_bottom = -77.02
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 1, 0.337255, 1)
+theme_override_colors/font_outline_color = Color(0, 0.615686, 0.337255, 1)
+theme_override_constants/outline_size = 50
+theme_override_constants/shadow_outline_size = 100
+theme_override_fonts/font = ExtResource("2_ro0d5")
+theme_override_font_sizes/font_size = 130
+text = "Creatures Vanquished!"
+
+[node name="Chroma2" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_7gq32")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_okho5")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_bfjwa")
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("GradientTexture1D_snw1w")
+
+[node name="Label2" type="Label" parent="."]
+material = SubResource("ShaderMaterial_tlrji")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -421.0
+offset_top = -286.02
+offset_right = 421.0
+offset_bottom = -77.02
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 1, 0.337255, 1)
+theme_override_colors/font_outline_color = Color(0, 0.615686, 0.337255, 1)
+theme_override_constants/outline_size = 50
+theme_override_constants/shadow_outline_size = 100
+theme_override_fonts/font = ExtResource("2_ro0d5")
+theme_override_font_sizes/font_size = 130
+text = "Creatures Vanquished!"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 585
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 365
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+material = SubResource("ShaderMaterial_0wppo")
+layout_mode = 2
+texture = SubResource("GradientTexture1D_qcrfd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 600
+
+[node name="Game_Over_Buttons" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Game_Over_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="NextLevel" type="Button" parent="MarginContainer/Game_Over_Buttons/HBoxContainer"]
+material = SubResource("ShaderMaterial_h8qvh")
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 0.333333, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.886275, 0.564706, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("2_ro0d5")
+theme_override_font_sizes/font_size = 31
+text = "Next Level!"
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Game_Over_Buttons/HBoxContainer"]
+visible = false
+material = SubResource("ShaderMaterial_8p1dp")
+layout_mode = 2
+texture = SubResource("GradientTexture2D_crx4s")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/Game_Over_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="MainMenu" type="Button" parent="MarginContainer/Game_Over_Buttons/HBoxContainer2"]
+material = SubResource("ShaderMaterial_h8qvh")
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 0.333333, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.886275, 0.564706, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("2_ro0d5")
+theme_override_font_sizes/font_size = 31
+text = "Main Menu"
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Game_Over_Buttons/HBoxContainer2"]
+visible = false
+material = SubResource("ShaderMaterial_8p1dp")
+layout_mode = 2
+texture = SubResource("GradientTexture2D_crx4s")
+
+[connection signal="pressed" from="MarginContainer/Game_Over_Buttons/HBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="MarginContainer/Game_Over_Buttons/HBoxContainer2/MainMenu" to="." method="_on_main_menu_pressed"]

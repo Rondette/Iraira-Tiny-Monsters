@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnynoipodmiud"]
+[gd_scene load_steps=12 format=3 uid="uid://dnynoipodmiud"]
 
 [ext_resource type="Script" path="res://Scripts/food.gd" id="1_r12v6"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="2_lcgb6"]
+[ext_resource type="Texture2D" uid="uid://bw701k42uqbl1" path="res://Food/strawberry.png" id="3_uigd8"]
 [ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="3_v66bw"]
+[ext_resource type="Texture2D" uid="uid://bjpprfvsk53y2" path="res://Food/turnip.png" id="4_mhnmk"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_0cef0"]
 
@@ -26,8 +28,10 @@ viewport_path = NodePath("SubViewport")
 [node name="Food" type="StaticBody3D" groups=["food"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00648, 0, -1.9403)
 script = ExtResource("1_r12v6")
+foods = Array[Texture]([ExtResource("4_mhnmk"), ExtResource("3_uigd8")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("PrismMesh_0cef0")
 skeleton = NodePath("../..")
 
@@ -65,3 +69,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735, 0)
 offset = Vector2(-160, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_0eft4")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(7.53, 0, 0, 0, 7.53, 0, 0, 0, 7.53, 0, 0, 0)
+billboard = 2
+texture_filter = 0
+texture = ExtResource("3_uigd8")

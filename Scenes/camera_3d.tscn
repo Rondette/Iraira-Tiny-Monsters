@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d3ncvw2fx6n3c"]
+[gd_scene load_steps=28 format=3 uid="uid://d3ncvw2fx6n3c"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_43u55"]
 [ext_resource type="PackedScene" uid="uid://bljctpnk4gp61" path="res://Scenes/tower.tscn" id="2_htiux"]
@@ -11,7 +11,13 @@
 [ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="9_mch4h"]
 [ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="10_7lmws"]
 [ext_resource type="Gradient" uid="uid://c0gt8xvkismoe" path="res://base_gradient.tres" id="11_oquvf"]
+[ext_resource type="PackedScene" uid="uid://clvw0n3a7l5rc" path="res://Towers/fist.tscn" id="11_t5qu1"]
 [ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="12_6ovwy"]
+[ext_resource type="Texture2D" uid="uid://d3vf67unccdbg" path="res://Towers/fingergun.png" id="12_37uvr"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/cartoon.gdshader" id="13_0kxpv"]
+[ext_resource type="Texture2D" uid="uid://cpm5dfrtfm24j" path="res://edgesASCII.png" id="14_glmqd"]
+[ext_resource type="Texture2D" uid="uid://dphtrx1r0a575" path="res://Towers/fist.png" id="14_u45m4"]
+[ext_resource type="Texture2D" uid="uid://n5vqpkrwmwud" path="res://fillASCII.png" id="15_347in"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0tyl"]
 shader = ExtResource("9_mch4h")
@@ -43,19 +49,30 @@ shader_parameter/circle_size = 0.484
 shader_parameter/ratio_width = 0.58
 shader_parameter/ratio_height = 1.0
 
-[sub_resource type="Gradient" id="Gradient_4486c"]
+[sub_resource type="Gradient" id="Gradient_0gu7o"]
 offsets = PackedFloat32Array(0, 0.0401146)
 colors = PackedColorArray(0.184314, 1, 0.854902, 0.294118, 0.184314, 1, 0.854902, 0.368627)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_20lcq"]
-gradient = SubResource("Gradient_4486c")
+gradient = SubResource("Gradient_0gu7o")
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gwx8e"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooudm"]
+render_priority = 0
+shader = ExtResource("13_0kxpv")
+shader_parameter/_char_size = 8.0
+shader_parameter/_char_count = 10.0
+shader_parameter/_ascii_tex = ExtResource("15_347in")
+shader_parameter/_ascii_edge_tex = ExtResource("14_glmqd")
+
+[sub_resource type="QuadMesh" id="QuadMesh_edu23"]
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="Camera3D" type="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.728969, 0.684547, 0, -0.684547, 0.728969, -3.90751, 6.51926, 10.9211)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.90751, 6.51926, 10.9211)
 current = true
 script = ExtResource("1_43u55")
+money = 100
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -113,6 +130,21 @@ theme_override_fonts/font = ExtResource("12_6ovwy")
 theme_override_font_sizes/font_size = 30
 text = "Food Remaining"
 
+[node name="Money" type="Label" parent="CanvasLayer/Control/MarginContainer/FoodRemaining"]
+material = SubResource("ShaderMaterial_p7unn")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.913725, 0.580392, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("12_6ovwy")
+theme_override_font_sizes/font_size = 30
+text = "Money: 1"
+
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -132,8 +164,9 @@ layout_mode = 2
 size_flags_vertical = 8
 script = ExtResource("4_ug3vs")
 test_tower = ExtResource("2_htiux")
+fist = ExtResource("11_t5qu1")
 
-[node name="test_tower" type="Button" parent="CanvasLayer/Control/MarginContainer2/ItemBar"]
+[node name="fingergun" type="Button" parent="CanvasLayer/Control/MarginContainer2/ItemBar"]
 self_modulate = Color(0.282353, 0.678431, 0.517647, 1)
 texture_filter = 1
 layout_mode = 2
@@ -141,7 +174,7 @@ size_flags_horizontal = 0
 icon = ExtResource("5_qyfxx")
 flat = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer2/ItemBar/test_tower"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer2/ItemBar/fingergun"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -154,9 +187,10 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("PlaceholderTexture2D_gwx8e")
+texture = ExtResource("12_37uvr")
+flip_h = true
 
-[node name="amount" type="Label" parent="CanvasLayer/Control/MarginContainer2/ItemBar/test_tower"]
+[node name="amount" type="Label" parent="CanvasLayer/Control/MarginContainer2/ItemBar/fingergun"]
 material = SubResource("ShaderMaterial_p7unn")
 layout_mode = 1
 anchors_preset = 2
@@ -174,6 +208,58 @@ theme_override_constants/outline_size = 15
 theme_override_constants/shadow_outline_size = 25
 theme_override_fonts/font = ExtResource("7_76re3")
 theme_override_font_sizes/font_size = 60
-text = "1"
+text = "$5"
 
-[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/test_tower" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_test_tower_pressed"]
+[node name="fist" type="Button" parent="CanvasLayer/Control/MarginContainer2/ItemBar"]
+self_modulate = Color(0.282353, 0.678431, 0.517647, 1)
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("5_qyfxx")
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer2/ItemBar/fist"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_u45m4")
+flip_h = true
+
+[node name="amount" type="Label" parent="CanvasLayer/Control/MarginContainer2/ItemBar/fist"]
+material = SubResource("ShaderMaterial_p7unn")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -72.0
+offset_right = 33.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.913725, 0.580392, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 25
+theme_override_fonts/font = ExtResource("7_76re3")
+theme_override_font_sizes/font_size = 60
+text = "$7
+"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506024, 0.269594, -0.928089)
+visible = false
+material_override = SubResource("ShaderMaterial_ooudm")
+mesh = SubResource("QuadMesh_edu23")
+
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/fingergun" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_test_tower_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/fist" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_fist_pressed"]

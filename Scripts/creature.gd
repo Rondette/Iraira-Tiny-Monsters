@@ -6,11 +6,14 @@ var food_tag = "food"
 @export var eating_distance : float = 3.0
 @onready var health : int = max_health
 @export var max_health : int = 20
+@export var value : int = 1
 var nearest_food
 var nearest_tower
 var navigation_agent: NavigationAgent3D
 var full = false
+@export var creatures : Array[Texture]
 func _ready() -> void:
+	$Sprite3D2.texture=creatures.pick_random()
 	$SubViewport/CanvasLayer/MarginContainer/health.max_value=max_health
 	$SubViewport/CanvasLayer/MarginContainer/health.value=health
 	navigation_agent = NavigationAgent3D.new()
@@ -63,7 +66,7 @@ func _on_timer_timeout() -> void:
 	if nearest_food != null and global_transform.origin.distance_to(nearest_food.global_transform.origin) <= eating_distance:
 		nearest_food.eat(strength)
 		velocity = Vector3.ZERO
-		self.scale*=1.1
+		$Sprite3D2.scale*=1.1
 		self.eating_distance*=1.1
 	elif nearest_food == null:
 		move_to_nearest_food()
@@ -73,4 +76,5 @@ func hurt(damage):
 	health-=damage
 	$SubViewport/CanvasLayer/MarginContainer/health.value=health
 	if health<=0:
+		$"../../Camera3D".money+=value
 		self.queue_free()

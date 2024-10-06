@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://qk17iec0wbbg"]
+
+[ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="1_dgvaf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cxm1j"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Curve" id="Curve_l2avs"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.203077, 2), 0.0, 0.0, 0, 0, Vector2(0.390769, 0.00487232), 0.0, 0.0, 0, 0, Vector2(0.766154, 2), 20.4009, 0.0, 0, 0]
+point_count = 4
+
+[node name="LevelUpVFX" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+process_mode = 3
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1000, 210)
+
+[node name="Label" type="Label" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -89.5
+offset_right = 256.0
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894872, 0.613962, 0.83333, 1)
+theme_override_colors/font_shadow_color = Color(0.314316, 0.314316, 0.314316, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 45
+theme_override_constants/shadow_outline_size = 115
+theme_override_fonts/font = ExtResource("1_dgvaf")
+theme_override_font_sizes/font_size = 150
+text = "Wave 1"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(5222, 1184)
+emitting = false
+amount = 10
+lifetime = 5.0
+one_shot = true
+explosiveness = 0.83
+randomness = 1.0
+texture = SubResource("ViewportTexture_cxm1j")
+direction = Vector2(13.235, 11.525)
+spread = 180.0
+gravity = Vector2(-1500, 0)
+initial_velocity_max = 724.72
+linear_accel_min = -66.28
+linear_accel_max = 91.86
+radial_accel_min = -40.2
+radial_accel_max = 100.0
+angle_min = -20.0
+angle_max = 20.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_l2avs")

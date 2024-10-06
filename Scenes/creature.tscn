@@ -1,12 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1sdxqag6pm3v"]
+[gd_scene load_steps=15 format=3 uid="uid://c1sdxqag6pm3v"]
 
 [ext_resource type="Script" path="res://Scripts/creature.gd" id="1_yxec4"]
+[ext_resource type="Texture2D" uid="uid://cl63ujof847u4" path="res://bug_Albedo.png" id="2_2jkhv"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="2_6wxkd"]
+[ext_resource type="Texture2D" uid="uid://dfu8twxxcjdvw" path="res://creatures/duck.png" id="2_jxwmp"]
+[ext_resource type="ArrayMesh" uid="uid://dsmw7fdkbxu04" path="res://gorbino.obj" id="3_eoyja"]
 [ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="3_l4fst"]
+[ext_resource type="Texture2D" uid="uid://cw3ggr66bdsx0" path="res://creatures/gumbo.png" id="4_bt73d"]
+[ext_resource type="Texture2D" uid="uid://bo3j40hhwiwhg" path="res://creatures/gobbler.png" id="6_qbefm"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_d4cu8"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_vcd32"]
+albedo_texture = ExtResource("2_2jkhv")
+texture_filter = 0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ylfue"]
+radius = 0.934722
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b1r1l"]
 shader = ExtResource("2_6wxkd")
@@ -25,9 +33,15 @@ viewport_path = NodePath("SubViewport")
 
 [node name="creature" type="CharacterBody3D" groups=["creature"]]
 script = ExtResource("1_yxec4")
+strength = 5
+max_health = 10
+creatures = Array[Texture]([ExtResource("2_jxwmp"), ExtResource("6_qbefm"), ExtResource("4_bt73d")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_d4cu8")
+transform = Transform3D(-0.285, 0, -2.49155e-08, 0, 0.285, 0, 2.49155e-08, 0, -0.285, 0.507028, 0.160478, 0)
+visible = false
+material_override = SubResource("ORMMaterial3D_vcd32")
+mesh = ExtResource("3_eoyja")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ylfue")
@@ -69,5 +83,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735, 0)
 offset = Vector2(-160, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_ggvwt")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(7.44, 0, 0, 0, 7.44, 0, 0, 0, 7.44, 0, 0, 0)
+billboard = 2
+texture_filter = 0
+texture = ExtResource("6_qbefm")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,7 +1,8 @@
 extends Camera3D
 
 @export var selected_tower : PackedScene
-var tower_name : String
+@export var money : int
+var canPlace = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -9,11 +10,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	$CanvasLayer/Control/MarginContainer/FoodRemaining/Money.text=str("Money: $", money)
 	if Input.is_action_just_pressed("place"):
 		if selected_tower !=null:
-			if tower_name=="test" && $CanvasLayer/Control/MarginContainer2/ItemBar.test_tower_quantity>0:
-				$CanvasLayer/Control/MarginContainer2/ItemBar.test_tower_quantity-=1
-				spawnTower()
+			spawnTower()
 func ScreenPointToRay() -> Vector3:
 	var spaceState = get_world_3d().direct_space_state
 	var mousePos = get_viewport().get_mouse_position()
@@ -28,15 +28,20 @@ func ScreenPointToRay() -> Vector3:
 		var collider = ray_result["collider"]
 		 
 		if collider.is_in_group("floor"):
-			print("Hit floor at position: ", ray_result["position"])
+			canPlace=true
 			return ray_result["position"]
 		else:
+			canPlace=false
 			print("Hit something, but not the floor.")
 			return Vector3(0,-900,0)
 	else:
+		canPlace=false
 		return Vector3(0,-900,0)
 func spawnTower():
-	var tower_instance = selected_tower.instantiate()
-	tower_instance.position = ScreenPointToRay()
-	$"../NavigationRegion3D".add_child(tower_instance)
-	$"../NavigationRegion3D".bake_navigation_mesh()
+		var tower_instance = selected_tower.instantiate()
+		tower_instance.position = ScreenPointToRay()
+		if canPlace:
+			if money >= tower_instance.cost:
+				$"../NavigationRegion3D".add_child(tower_instance)
+				money-=tower_instance.cost
+			$"../NavigationRegion3D".bake_navigation_mesh()

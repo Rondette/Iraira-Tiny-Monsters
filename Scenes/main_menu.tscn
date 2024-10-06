@@ -6956,3 +6956,4 @@ texture = SubResource("GradientTexture2D_apmfm")
 [connection signal="mouse_exited" from="MM_Buttons/HBoxContainer3/Credits" to="." method="_on_credits_mouse_exited"]
 [connection signal="mouse_entered" from="MM_Buttons/HBoxContainer4/Exit" to="." method="_on_exit_mouse_entered"]
 [connection signal="mouse_exited" from="MM_Buttons/HBoxContainer4/Exit" to="." method="_on_exit_mouse_exited"]
+[connection signal="pressed" from="MM_Buttons/HBoxContainer4/Exit" to="." method="_on_exit_pressed"]
