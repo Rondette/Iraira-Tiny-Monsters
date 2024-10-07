@@ -2,8 +2,8 @@ shader_type canvas_item;
 
 // Ripple parameters
 uniform float speed : hint_range(0.0, 10.0, 0.1) = 3.0;
-uniform float height : hint_range(0.0, 10.0, 0.001) = 0.5;
-uniform float wave_count : hint_range(1.0, 20.0, 0.1) = 10.0;
+uniform float height : hint_range(0.0, 100.0, 0.001) = 0.5;
+uniform float wave_count : hint_range(1.0, 200.0, 0.1) = 10.0;
 uniform float edge_intensity : hint_range(0.0, 2.0, 0.01) = 1.0;
 uniform float alpha_intensity : hint_range(0.0, 1.0, 0.01) = 1.0; // Control alpha intensity
 

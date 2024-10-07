@@ -7,6 +7,8 @@ var next :bool
 @export var wave_time : int = 5
 @export var max_waves : int = 10
 @export var level_number : int
+@export var boss_waves : Array[int]
+@export var boss_sprites : Array[Texture]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Globals.currentLevel=level_number
@@ -32,7 +34,7 @@ func _on_spawn_clock_timeout() -> void:
 		await get_tree().create_timer(0.75).timeout
 		child.spawning=next
 	for n in wave_vfx_spawn.get_children():
-		if n.name=="SubViewport":
+		if n.name=="SubViewport": 
 			for a in n.get_children():
 				if next==true:
 					a.text=str("Wave ", wave_number)

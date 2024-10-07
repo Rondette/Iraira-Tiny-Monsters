@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0fw4y35kq2c6"]
+[gd_scene load_steps=17 format=3 uid="uid://b0fw4y35kq2c6"]
 
 [ext_resource type="Script" path="res://game_over.gd" id="1_l5jve"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/Chromatic_Aberration.gdshader" id="2_rvm3d"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="4_xwkcv"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/text_stretch.gdshader" id="5_bujxu"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/Advanced_Wave_2d.gdshader" id="6_auw15"]
+[ext_resource type="AudioStream" uid="uid://7mb20uwt7a4a" path="res://Battle Animals.mp3" id="7_bcxh7"]
 
 [sub_resource type="Gradient" id="Gradient_muavp"]
 colors = PackedColorArray(0.378232, 6.04643e-07, 4.81308e-08, 1, 1, 1, 1, 0)
@@ -37,6 +38,7 @@ shader = ExtResource("5_bujxu")
 shader_parameter/distance = 4.0
 shader_parameter/frequency = 14.685
 shader_parameter/speed = 1.0
+shader_parameter/more = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1iqm"]
 shader = ExtResource("6_auw15")
@@ -204,6 +206,10 @@ visible = false
 material = SubResource("ShaderMaterial_m1iqm")
 layout_mode = 2
 texture = SubResource("GradientTexture2D_ssvp7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_bcxh7")
+autoplay = true
 
 [connection signal="pressed" from="Game_Over_Buttons/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="Game_Over_Buttons/HBoxContainer2/Quit" to="." method="_on_quit_pressed"]

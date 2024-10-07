@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://d3ncvw2fx6n3c"]
+[gd_scene load_steps=37 format=3 uid="uid://d3ncvw2fx6n3c"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_43u55"]
 [ext_resource type="PackedScene" uid="uid://bljctpnk4gp61" path="res://Scenes/tower.tscn" id="2_htiux"]
@@ -14,10 +14,14 @@
 [ext_resource type="PackedScene" uid="uid://clvw0n3a7l5rc" path="res://Towers/fist.tscn" id="11_t5qu1"]
 [ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="12_6ovwy"]
 [ext_resource type="Texture2D" uid="uid://d3vf67unccdbg" path="res://Towers/fingergun.png" id="12_37uvr"]
+[ext_resource type="PackedScene" uid="uid://imv2s337oric" path="res://Scenes/sniper.tscn" id="12_ma26g"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/cartoon.gdshader" id="13_0kxpv"]
 [ext_resource type="Texture2D" uid="uid://cpm5dfrtfm24j" path="res://edgesASCII.png" id="14_glmqd"]
 [ext_resource type="Texture2D" uid="uid://dphtrx1r0a575" path="res://Towers/fist.png" id="14_u45m4"]
 [ext_resource type="Texture2D" uid="uid://n5vqpkrwmwud" path="res://fillASCII.png" id="15_347in"]
+[ext_resource type="Texture2D" uid="uid://bqo7rqopejkuf" path="res://Towers/Sniper_Finger.png" id="16_6br76"]
+[ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="18_s7kgn"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Chromatic_Aberration.gdshader" id="18_w1t1q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0tyl"]
 shader = ExtResource("9_mch4h")
@@ -36,6 +40,7 @@ shader = ExtResource("6_64kh4")
 shader_parameter/distance = 4.0
 shader_parameter/frequency = 14.685
 shader_parameter/speed = 1.0
+shader_parameter/more = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_elajn"]
 shader = ExtResource("3_rrg3h")
@@ -55,6 +60,42 @@ colors = PackedColorArray(0.184314, 1, 0.854902, 0.294118, 0.184314, 1, 0.854902
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_20lcq"]
 gradient = SubResource("Gradient_0gu7o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4k0ul"]
+shader = ExtResource("18_w1t1q")
+shader_parameter/levels = 2
+shader_parameter/spread = -0.035
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ju57m"]
+
+[sub_resource type="Shader" id="Shader_u4f87"]
+code = "shader_type canvas_item;
+
+uniform float distance = 6.0;
+uniform float frequency = 20.0;
+uniform float speed = 3.0;
+uniform bool more = false;
+void vertex() {
+ VERTEX.x += distance * abs(sin((frequency * UV.y) + (speed * TIME)));
+if (more==true){
+	VERTEX.y += distance * abs(sin((frequency * UV.x) + (speed * TIME)));
+}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_km6jx"]
+shader = SubResource("Shader_u4f87")
+shader_parameter/distance = 18.42
+shader_parameter/frequency = 58.655
+shader_parameter/speed = -0.5
+shader_parameter/more = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwhrj"]
+shader = ExtResource("6_64kh4")
+shader_parameter/distance = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 1.0
+shader_parameter/more = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ooudm"]
 render_priority = 0
@@ -165,12 +206,14 @@ size_flags_vertical = 8
 script = ExtResource("4_ug3vs")
 test_tower = ExtResource("2_htiux")
 fist = ExtResource("11_t5qu1")
+sniper = ExtResource("12_ma26g")
 
 [node name="fingergun" type="Button" parent="CanvasLayer/Control/MarginContainer2/ItemBar"]
 self_modulate = Color(0.282353, 0.678431, 0.517647, 1)
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Fingergun, basic ranged solution."
 icon = ExtResource("5_qyfxx")
 flat = true
 
@@ -215,6 +258,7 @@ self_modulate = Color(0.282353, 0.678431, 0.517647, 1)
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Close and personal, feel the squish."
 icon = ExtResource("5_qyfxx")
 flat = true
 
@@ -255,6 +299,140 @@ theme_override_font_sizes/font_size = 60
 text = "$7
 "
 
+[node name="sniper" type="Button" parent="CanvasLayer/Control/MarginContainer2/ItemBar"]
+self_modulate = Color(0.282353, 0.678431, 0.517647, 1)
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Long ranged, slow."
+icon = ExtResource("5_qyfxx")
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer2/ItemBar/sniper"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.79
+offset_bottom = -35.79
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_6br76")
+
+[node name="amount" type="Label" parent="CanvasLayer/Control/MarginContainer2/ItemBar/sniper"]
+material = SubResource("ShaderMaterial_p7unn")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -72.0
+offset_right = 33.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.913725, 0.580392, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 25
+theme_override_fonts/font = ExtResource("7_76re3")
+theme_override_font_sizes/font_size = 60
+text = "$20
+"
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_s7kgn")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -54.0
+offset_right = -198.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.237365
+mouse_filter = 2
+theme_override_constants/margin_left = 1125
+theme_override_constants/margin_top = -335
+theme_override_constants/margin_right = 505
+theme_override_constants/margin_bottom = -135
+
+[node name="Chroma2" type="TextureRect" parent="CanvasLayer/PauseMenu/MarginContainer2"]
+material = SubResource("ShaderMaterial_4k0ul")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_ju57m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausedText" type="Label" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_km6jx")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.160784, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.721569, 0.984314, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 25
+theme_override_fonts/font = ExtResource("12_6ovwy")
+theme_override_font_sizes/font_size = 71
+text = "[PAUSED]"
+
+[node name="Resume" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_kwhrj")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843137, 0.580392, 0.819608, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0.678431, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("12_6ovwy")
+theme_override_font_sizes/font_size = 71
+text = "Resume"
+flat = true
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_kwhrj")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843137, 0.580392, 0.819608, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0.678431, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("12_6ovwy")
+theme_override_font_sizes/font_size = 71
+text = "Main Menu"
+flat = true
+
+[node name="Quit" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_kwhrj")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843137, 0.580392, 0.819608, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0.678431, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("12_6ovwy")
+theme_override_font_sizes/font_size = 71
+text = "Quit"
+flat = true
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506024, 0.269594, -0.928089)
 visible = false
@@ -263,3 +441,7 @@ mesh = SubResource("QuadMesh_edu23")
 
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/fingergun" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_test_tower_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/fist" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_fist_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/ItemBar/sniper" to="CanvasLayer/Control/MarginContainer2/ItemBar" method="_on_sniper_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/Resume" to="CanvasLayer/PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/MainMenu" to="CanvasLayer/PauseMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/Quit" to="CanvasLayer/PauseMenu" method="_on_quit_pressed"]

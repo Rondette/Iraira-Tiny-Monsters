@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1sdxqag6pm3v"]
+[gd_scene load_steps=19 format=3 uid="uid://c1sdxqag6pm3v"]
 
 [ext_resource type="Script" path="res://Scripts/creature.gd" id="1_yxec4"]
 [ext_resource type="Texture2D" uid="uid://cl63ujof847u4" path="res://bug_Albedo.png" id="2_2jkhv"]
@@ -7,7 +7,11 @@
 [ext_resource type="ArrayMesh" uid="uid://dsmw7fdkbxu04" path="res://gorbino.obj" id="3_eoyja"]
 [ext_resource type="FontFile" uid="uid://bvebvstabky2a" path="res://Fonts/02.10ITA.TTF" id="3_l4fst"]
 [ext_resource type="Texture2D" uid="uid://cw3ggr66bdsx0" path="res://creatures/gumbo.png" id="4_bt73d"]
+[ext_resource type="Texture2D" uid="uid://cgdts21rorpos" path="res://creatures/munchkin.png" id="5_atxyx"]
 [ext_resource type="Texture2D" uid="uid://bo3j40hhwiwhg" path="res://creatures/gobbler.png" id="6_qbefm"]
+[ext_resource type="Texture2D" uid="uid://ln23vu87ymjj" path="res://creatures/borgle.png" id="6_vpuu4"]
+[ext_resource type="Texture2D" uid="uid://bfnipgayt8vb7" path="res://creatures/munchy.png" id="7_ld31l"]
+[ext_resource type="Texture2D" uid="uid://b3v1fgioy7w3d" path="res://creatures/rarg.png" id="8_je3vu"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_vcd32"]
 albedo_texture = ExtResource("2_2jkhv")
@@ -35,7 +39,7 @@ viewport_path = NodePath("SubViewport")
 script = ExtResource("1_yxec4")
 strength = 5
 max_health = 10
-creatures = Array[Texture]([ExtResource("2_jxwmp"), ExtResource("6_qbefm"), ExtResource("4_bt73d")])
+creatures = Array[Texture]([ExtResource("2_jxwmp"), ExtResource("6_qbefm"), ExtResource("4_bt73d"), ExtResource("5_atxyx"), ExtResource("6_vpuu4"), ExtResource("7_ld31l"), ExtResource("8_je3vu")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.285, 0, -2.49155e-08, 0, 0.285, 0, 2.49155e-08, 0, -0.285, 0.507028, 0.160478, 0)
@@ -90,4 +94,8 @@ billboard = 2
 texture_filter = 0
 texture = ExtResource("6_qbefm")
 
+[node name="refresh" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="refresh" to="." method="_on_refresh_timeout"]

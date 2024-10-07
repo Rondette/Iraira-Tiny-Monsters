@@ -9,6 +9,7 @@
 [sub_resource type="PrismMesh" id="PrismMesh_0cef0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4lc3j"]
+size = Vector3(0.28717, 0.218262, 0.471191)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f6hgd"]
 shader = ExtResource("2_lcgb6")

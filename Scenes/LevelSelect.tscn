@@ -1,0 +1,374 @@
+[gd_scene load_steps=24 format=3 uid="uid://bid1tghmnnmyq"]
+
+[ext_resource type="Shader" path="res://Scripts/Shaders/Advanced_Wave_2d.gdshader" id="1_gyqb2"]
+[ext_resource type="Script" path="res://Scenes/level_select.gd" id="1_t1l0f"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Wavey_Text.gdshader" id="3_1as85"]
+[ext_resource type="FontFile" uid="uid://cdw74duhcy6yo" path="res://Fonts/ConcertOne-Regular.ttf" id="4_1oo05"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Chromatic_Aberration.gdshader" id="5_17knk"]
+[ext_resource type="Texture2D" uid="uid://cw3ggr66bdsx0" path="res://creatures/gumbo.png" id="6_tfbhd"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/text_stretch.gdshader" id="7_5fhgj"]
+[ext_resource type="Texture2D" uid="uid://bo3j40hhwiwhg" path="res://creatures/gobbler.png" id="9_8liik"]
+[ext_resource type="Texture2D" uid="uid://cgdts21rorpos" path="res://creatures/munchkin.png" id="10_4nxof"]
+[ext_resource type="Texture2D" uid="uid://ln23vu87ymjj" path="res://creatures/borgle.png" id="11_74hgy"]
+[ext_resource type="Texture2D" uid="uid://bfnipgayt8vb7" path="res://creatures/munchy.png" id="12_46m8b"]
+[ext_resource type="Texture2D" uid="uid://b3v1fgioy7w3d" path="res://creatures/rarg.png" id="13_jsjkl"]
+[ext_resource type="FontFile" uid="uid://dycmchkkojquc" path="res://Fonts/RubikBubbles-Regular.ttf" id="14_lakp6"]
+[ext_resource type="AudioStream" uid="uid://7mb20uwt7a4a" path="res://Battle Animals.mp3" id="15_d571f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s4esc"]
+shader = ExtResource("1_gyqb2")
+shader_parameter/speed = 0.4
+shader_parameter/height = 3.333
+shader_parameter/wave_count = 30.7
+shader_parameter/edge_intensity = 2.0
+shader_parameter/alpha_intensity = 0.71
+shader_parameter/frequency = 590.0
+shader_parameter/circle_size = 1.0
+shader_parameter/ratio_width = -0.04
+shader_parameter/ratio_height = 1.0
+
+[sub_resource type="Gradient" id="Gradient_pi0rd"]
+colors = PackedColorArray(0, 0.913725, 0.580392, 1, 1, 0.697449, 0.829585, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_30hhm"]
+gradient = SubResource("Gradient_pi0rd")
+fill_from = Vector2(0.888889, 0.679487)
+fill_to = Vector2(0.568376, 0.692308)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6o1m"]
+shader = ExtResource("3_1as85")
+shader_parameter/height = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nfxuo"]
+shader = ExtResource("5_17knk")
+shader_parameter/levels = 17
+shader_parameter/spread = -0.035
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v4qmg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ssr2c"]
+shader = ExtResource("5_17knk")
+shader_parameter/levels = 2
+shader_parameter/spread = -0.035
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_po2xe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j843y"]
+shader = ExtResource("7_5fhgj")
+shader_parameter/distance = 6.0
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 1.5
+shader_parameter/more = true
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t1l0f")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_s4esc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_30hhm")
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_l6o1m")
+offset_left = 23.195
+offset_top = 129.115
+offset_right = 686.195
+offset_bottom = 297.115
+rotation = -0.237365
+theme_override_colors/font_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
+theme_override_colors/font_shadow_color = Color(0.377919, 0.377919, 0.377919, 1)
+theme_override_colors/font_outline_color = Color(0.999995, 0.260501, 0.673119, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 126
+text = "Level Select"
+
+[node name="Chroma" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_nfxuo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_v4qmg")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -829.0
+offset_top = -321.0
+offset_right = -829.0
+offset_bottom = -321.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.237365
+theme_override_constants/margin_left = 1125
+theme_override_constants/margin_top = -335
+theme_override_constants/margin_right = 505
+theme_override_constants/margin_bottom = -135
+
+[node name="Chroma2" type="TextureRect" parent="MarginContainer2"]
+material = SubResource("ShaderMaterial_ssr2c")
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_po2xe")
+
+[node name="Label2" type="Label" parent="."]
+material = SubResource("ShaderMaterial_l6o1m")
+offset_left = 23.195
+offset_top = 129.115
+offset_right = 686.195
+offset_bottom = 297.115
+rotation = -0.237365
+theme_override_colors/font_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
+theme_override_colors/font_shadow_color = Color(0.377919, 0.377919, 0.377919, 1)
+theme_override_colors/font_outline_color = Color(0.999995, 0.260501, 0.673119, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 126
+text = "Level Select"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -677.5
+offset_top = -258.0
+offset_right = 677.5
+offset_bottom = 258.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level1" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Level1" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Level1"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+icon = ExtResource("6_tfbhd")
+expand_icon = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/Level1"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_j843y")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.428113, 0.663263, 1, 1)
+theme_override_colors/font_outline_color = Color(0.317647, 0.67451, 0.588235, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 36
+text = "Level  1"
+
+[node name="Level2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Level2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Level2"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+icon = ExtResource("9_8liik")
+expand_icon = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/Level2"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_j843y")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.428113, 0.663263, 1, 1)
+theme_override_colors/font_outline_color = Color(0.317647, 0.67451, 0.588235, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 36
+text = "Level  2"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Level3" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2/Level3"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+icon = ExtResource("10_4nxof")
+icon_alignment = 2
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/Level3"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_j843y")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.428113, 0.663263, 1, 1)
+theme_override_colors/font_outline_color = Color(0.317647, 0.67451, 0.588235, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 36
+text = "Level  3"
+
+[node name="Level4" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Level4" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2/Level4"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+icon = ExtResource("11_74hgy")
+expand_icon = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/Level4"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_j843y")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.428113, 0.663263, 1, 1)
+theme_override_colors/font_outline_color = Color(0.317647, 0.67451, 0.588235, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 36
+text = "Level  4"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level5" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Level5" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/Level5"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+icon = ExtResource("12_46m8b")
+icon_alignment = 2
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3/Level5"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_j843y")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.428113, 0.663263, 1, 1)
+theme_override_colors/font_outline_color = Color(0.317647, 0.67451, 0.588235, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 36
+text = "Level  5"
+
+[node name="Level6" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Level6" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/Level6"]
+texture_filter = 1
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+icon = ExtResource("13_jsjkl")
+expand_icon = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3/Level6"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_j843y")
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.428113, 0.663263, 1, 1)
+theme_override_colors/font_outline_color = Color(0.317647, 0.67451, 0.588235, 1)
+theme_override_constants/outline_size = 30
+theme_override_constants/shadow_outline_size = 50
+theme_override_fonts/font = ExtResource("4_1oo05")
+theme_override_font_sizes/font_size = 36
+text = "Level  6"
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -58.0
+offset_right = 164.0
+grow_vertical = 0
+
+[node name="Back" type="Button" parent="MarginContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.713726, 0.4, 1, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("14_lakp6")
+theme_override_font_sizes/font_size = 41
+text = "<- Back"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_d571f")
+autoplay = true
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Level1/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Level2/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/Level3/Level3" to="." method="_on_level_3_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/Level4/Level4" to="." method="_on_level_4_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer3/Level5/Level5" to="." method="_on_level_5_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer3/Level6/Level6" to="." method="_on_level_6_pressed"]
+[connection signal="pressed" from="MarginContainer3/Back" to="." method="_on_back_pressed"]

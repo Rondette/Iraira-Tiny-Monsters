@@ -17,4 +17,14 @@ func _on_main_menu_pressed() -> void:
 
 func _on_next_level_pressed() -> void:
 	if Globals.currentLevel==1:
-		
+		Globals.loadScene("res://Scenes/level2.tscn")
+	elif Globals.currentLevel==2:
+		Globals.loadScene("res://Scenes/level3.tscn")
+	elif Globals.currentLevel==3:
+		Globals.loadScene("res://Scenes/level4.tscn")
+	elif Globals.currentLevel==4:
+		Globals.loadScene("res://Scenes/level5.tscn")
+	elif Globals.currentLevel==5:
+		Globals.loadScene("res://Scenes/level6.tscn")
+	elif Globals.currentLevel==6:
+		Globals.loadScene("res://Scenes/main_menu.tscn")

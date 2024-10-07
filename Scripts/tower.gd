@@ -5,6 +5,7 @@ extends StaticBody3D
 @export var max_health : int = 20
 @export var cost : int = 5
 @export var towerName : String
+var nearest_creature: Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$SubViewport/CanvasLayer/MarginContainer/health.max_value=max_health
@@ -12,12 +13,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var nearest_creature = find_nearest_creature()
+	#var nearest_creature = find_nearest_creature()
 	if nearest_creature!= null:
 		look_at(nearest_creature.get_global_position())
 func find_nearest_creature() -> Node3D:
 	var shortest_distance = INF
-	var nearest_creature: Node3D = null
+	nearest_creature = null
 	for child in get_tree().get_nodes_in_group("creature"):
 		var distance = child.global_transform.origin.distance_to(child.global_transform.origin)
 		if distance < shortest_distance:
@@ -26,7 +27,7 @@ func find_nearest_creature() -> Node3D:
 	return nearest_creature
 
 func _on_timer_timeout() -> void:
-	var nearest_creature = find_nearest_creature()
+	nearest_creature = find_nearest_creature()
 	if nearest_creature:
 		$RayCast3D.look_at(nearest_creature.get_global_position())
 		$RayCast3D.force_raycast_update()

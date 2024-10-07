@@ -2,6 +2,7 @@ extends HBoxContainer
 
 @export var test_tower : PackedScene
 @export var fist : PackedScene
+@export var sniper : PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -15,3 +16,6 @@ func _on_test_tower_pressed() -> void:
 
 func _on_fist_pressed() -> void:
 	$"../../../..".selected_tower=fist
+
+func _on_sniper_pressed() -> void:
+	$"../../../..".selected_tower=sniper
